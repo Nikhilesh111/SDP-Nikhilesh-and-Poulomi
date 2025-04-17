@@ -11,13 +11,14 @@ public interface AirlineDAO {
 
     // read
     public Airline getAccountByID(int flight_id);
+
     public Airline getAccountByName(String flight_name);
 
     public List<Airline> getAllAccounts();
 
     // update
     public boolean changeAirline(int flight_id, String flight_name);
-    
+
     // delete
     public boolean removeAirline(int accountNumber);
 }

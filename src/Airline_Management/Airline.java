@@ -1,6 +1,5 @@
 package Airline_Management;
 
-
 public class Airline {
     private final int flight_id;
     private String flight_name;
@@ -10,7 +9,6 @@ public class Airline {
         this.flight_name = flight_name;
     }
 
-
     public int getID() {
         return flight_id;
     }
@@ -19,12 +17,9 @@ public class Airline {
         return flight_name;
     }
 
-
     public void setName(String flight_name) {
         this.flight_name = flight_name;
     }
-
-   
 
     @Override
     public String toString() {

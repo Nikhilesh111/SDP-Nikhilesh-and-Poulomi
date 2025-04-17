@@ -5,6 +5,7 @@
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "c:\\Users\\HI\\Downloads\\mariadb-java-client-3.5.1.jar"
     ]
 }

@@ -13,14 +13,15 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-public class MainView extends JFrame implements MainViewInterface{
+public class MainView extends JFrame implements MainViewInterface {
 
     private JTextField AirlineflightIDText = new JTextField();
     private JTextField AirlineflightNameText = new JTextField();
     private JButton insertButton = new JButton("Create flight");
     private JButton deleteButton = new JButton("Delete flight");
     private JButton listButton = new JButton("List All");
-    
+    private JButton updateButton = new JButton("Update Flight");
+    private JButton searchButton = new JButton("Search by ID");
 
     public MainView() {
         setTitle("Main");
@@ -29,10 +30,10 @@ public class MainView extends JFrame implements MainViewInterface{
         setLayout(new BorderLayout());
         JPanel topPanel = new JPanel(new FlowLayout());
         JPanel outerPanel = new JPanel();
-        outerPanel.setBorder(new EmptyBorder(5,5,5,5));
-        JPanel centerPanel = new JPanel( new GridLayout(3, 2) );
+        outerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel centerPanel = new JPanel(new GridLayout(3, 2));
         outerPanel.add(centerPanel);
-        JPanel bottomPanel = new JPanel( new GridLayout(3, 2) );
+        JPanel bottomPanel = new JPanel(new GridLayout(3, 2));
         addCenterComponent(centerPanel);
         addButtons(bottomPanel);
         add(topPanel, BorderLayout.NORTH);
@@ -43,35 +44,34 @@ public class MainView extends JFrame implements MainViewInterface{
     }
 
     private void addButtons(JPanel bottomPanel) {
-        bottomPanel.setBorder(new EmptyBorder(10,10,10,10));
+        bottomPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         bottomPanel.add(insertButton);
         bottomPanel.add(deleteButton);
         bottomPanel.add(listButton);
-        
+        bottomPanel.add(updateButton);
+        bottomPanel.add(searchButton);
+
         JPanel selectioPanel = new JPanel();
         selectioPanel.add(deleteButton);
-       
+
         bottomPanel.add(selectioPanel);
         JPanel buttonSelectionPanel = new JPanel();
         buttonSelectionPanel.add(listButton);
-        
+
         bottomPanel.add(buttonSelectionPanel);
-        
+
         toggleButtonEnabled(true);
     }
 
-   
-
     private void addCenterComponent(JPanel centerPanel) {
         centerPanel.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-        
+
         centerPanel.add(new JLabel("Flight ID "));
         centerPanel.add(AirlineflightIDText);
 
         centerPanel.add(new JLabel("Flight Name "));
         centerPanel.add(AirlineflightNameText);
 
-           
     }
 
     @Override
@@ -80,50 +80,57 @@ public class MainView extends JFrame implements MainViewInterface{
     }
 
     @Override
+    public void setUpdateButtonListener(ActionListener listener) {
+        updateButton.addActionListener(listener);
+    }
+
+    @Override
+    public void setSearchButtonListener(ActionListener listener) {
+        searchButton.addActionListener(listener);
+    }
+
+    @Override
     public int getflightId() {
-        String number = AirlineflightIDText.getText();
+        String number = AirlineflightIDText.getText().trim();
         try {
             return Integer.parseInt(number);
-        }
-        catch (NumberFormatException e) {
-            showMessage("Please enter a correct account number");
+        } catch (NumberFormatException e) {
+            showMessage("Please enter a correct Flight ID");
         }
         return 0;
     }
 
-   
- 
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Error Report",
-            JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void setAirlineID(int flightId) {
-        AirlineflightIDText.setText( Integer.toString(flightId) );
+        AirlineflightIDText.setText(Integer.toString(flightId));
     }
 
     @Override
     public void setFlightName(String flightName) {
         AirlineflightNameText.setText(flightName);
     }
+
     @Override
-    public String getFlightName () {
-        return  AirlineflightNameText.getText();
+    public String getFlightName() {
+        return AirlineflightNameText.getText();
     }
-    
 
     @Override
     public void clearFlightInfo() {
         AirlineflightNameText.setText("");
-        
+
     }
 
     @Override
     public void toggleButtonEnabled(boolean enabled) {
         insertButton.setEnabled(enabled);
         listButton.setEnabled(enabled);
-        
+
         deleteButton.setEnabled(enabled);
     }
 
@@ -132,12 +139,9 @@ public class MainView extends JFrame implements MainViewInterface{
         listButton.addActionListener(listener);
     }
 
-    
-
     @Override
     public void setDeleteButtonListener(ActionListener listener) {
         deleteButton.addActionListener(listener);
     }
 
-    
 }
